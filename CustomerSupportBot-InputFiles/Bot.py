@@ -28,7 +28,7 @@ logging.debug("FAISS index initialized.")
 
 # Streamlit app configuration
 st.set_page_config(
-    page_title="Customer Support Chatbot",
+    page_title="DocuBot",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -60,7 +60,8 @@ def get_response(messages):
         return "Sorry, I couldn't get a response."
 
 def main():
-    st.title("Customer Support Chatbot")
+    st.title("DocuBot")
+    st.write("I am your friend who can answer your questions based on the documents you provide me.")
     
     # Initialize chat history and FAISS database
     if 'chat_history' not in st.session_state:
@@ -128,6 +129,8 @@ def main():
     for chat in st.session_state.chat_history:
         avatar = "🤖" if chat["role"] == "assistant" else "😎"
         st.markdown(f"**{avatar}{chat['role'].capitalize()}**: {chat['content']}")
+        if chat["role"]=="assistant":
+            st.markdown("---")
 
 if __name__ == "__main__":
     main()

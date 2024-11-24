@@ -1,0 +1,17 @@
+@startuml
+actor User
+
+
+
+User->Start: Buttton is pressed and start_conversation() is called. A global variable speak_instance is created of class Speak()
+Start->start_conversation:
+start_conversation->Speak:Constructor is invoked which calls a method listen() which listens indefinitely.
+Speak->Speak.listen:This method listens until no voice is detected.
+Speak.listen->call_llm: This method is called and passes the transcription of the user input and stores the result in 'response'.
+call_llm->Speak.listen: Response is returned.
+Speak.listen->speak_response:The llm response is passed and it generates the audio for the same.
+note over Speak.listen: If any errors encountered it is printed.
+
+User->Stop: If user wants to end the convo then this button is clicked.
+Stop->stop_conversation:
+stop_conversation->Speak.stop: Bot stops listening.
